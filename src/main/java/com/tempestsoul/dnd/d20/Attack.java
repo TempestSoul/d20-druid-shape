@@ -7,59 +7,23 @@ public class Attack {
 	// Secondary attacks take a -5 on attack rolls, and are used on full attacks only?
 	boolean primaryAtk;
 	
-	// the name of the weapon used
-	String sWeapon;
+	// the weapon used
+	Weapon weapon;
 	
 	// number of weapons/attacks available (i.e. '2' claws, or '1' bite)
 	int iNumber;	// can only use one, unless full attacking
 	
-	// Hoo boy. Varies.
-	EnumSet<DamageType> damageTypes;
-	
-	// Ex: '1d4'. Not ideal for using with feats like Improved Natural Attack?
-	String dmgDie;
-	
-	// should default to standard critical
-	Critical critData;
-	
-	public Attack() {
-		critData = new Critical();
-		dmgDie = "0";
-		sWeapon = "Touch";	// well, I have to put something!
-		primaryAtk = true;	// wait, why do humans treat touch as a primary?
+	public Attack() {}
+	public Attack(Weapon weapon) {
+		this(1, weapon);
 	}
-	
-	public static enum DamageType {
-		Slashing, Bludgeoning, Piercing;
+	public Attack(int count, Weapon weapon) {
+		this(count, weapon, true);
 	}
-	
-	public static class Critical {
-		short multiplier;
-		short minRange;
-		short maxRange;
-		
-		public Critical() {
-			multiplier = 2;
-			minRange = 20;
-			maxRange = 20;
-		}
-		
-		public Critical(short minRange, short maxRange, short multiplier) {
-			this.minRange = minRange;
-			this.maxRange = maxRange;
-			this.multiplier = multiplier;
-		}
-		
-		@Override
-		public String toString() {
-			String str = "";
-			if(minRange == maxRange)
-				str += minRange;
-			else
-				str += minRange + "-" + maxRange;
-			str += "/x" + multiplier;
-			return str;
-		}
+	public Attack(int count, Weapon weapon, boolean isPrimary) {
+		this.iNumber = count;
+		this.weapon = weapon;
+		this.primaryAtk = isPrimary;
 	}
 	
 	public boolean isPrimaryAtk() {
@@ -70,12 +34,11 @@ public class Attack {
 		this.primaryAtk = primaryAtk;
 	}
 	
-	public String getName() {
-		return sWeapon;
-	}
+	public Weapon getWeapon() { return weapon; }
+	public void setWeapon(Weapon weapon) { this.weapon = weapon; }
 	
-	public void setName(String name) {
-		this.sWeapon = name;
+	public String getName() {
+		return (weapon == null) ? null : weapon.getName();
 	}
 	
 	public int getNumber() {
@@ -85,27 +48,5 @@ public class Attack {
 	public void setNumber(int count) {
 		this.iNumber = count;
 	}
-	public EnumSet<DamageType> getDamageTypes() {
-		return damageTypes;
-	}
 	
-	public void setDamageTypes(EnumSet<DamageType> damageTypes) {
-		this.damageTypes = damageTypes;
-	}
-	
-	public String getDmgDie() {
-		return dmgDie;
-	}
-	
-	public void setDmgDie(String dmgDie) {
-		this.dmgDie = dmgDie;
-	}
-	
-	public Critical getCritData() {
-		return critData;
-	}
-	
-	public void setCritData(Critical critData) {
-		this.critData = critData;
-	}
 }

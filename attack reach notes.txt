@@ -1,0 +1,39 @@
+space/reach:
+partly determined by size, but different attacks have different reach (dragons as prime example)
+so...
+* also, reach is itself affected by size, and there's a difference between ranged attacks
+	and reach...
+	reach w/ natural weapon = hits everything up to _ ft away (can be 2x normal or just better than normal)
+	reach w/ manu. weapon = hits at 2x normal reach, but usually not normal reach
+	ranged weapon = hit at any range, but take penalties over _ ft
+	
+also, there's the opposite -- some creatures have no reach,
+because they have no attacks (shrieker fungus) or they're too small (rat, bat, etc)
+
+So... Reach is Size (tall or long, which isn't defined!!), and attack/modifiers
+argh... Either make Size have a subtype saying tall | long, and set it when parsing
+space/reach (infer it), or just store both in some sort of structure unique to the creature.
+(also, still have to add to attack.... well, technically attacks have a size. Actually, really
+the attack consists of a weapon, combined with whether it's primary. The weapon
+has size and reach built in, along with natural attack.)
+
+So then,
+Weapon (baseDamage, Size, damageTypes, isNatural, reach)
+Attack (Weapon, isPrimary [, count])
+
+so for Giant Squid:
+	Size Huge (15 ft, [long])
+	[Reach 15, tentacle reach 30]
+	Attack (tentacle, true)
+		Tentacle (1d6, Huge, true, 30)
+	Attack (bite, false)
+		Bite(2d8, Huge, BSP, true, 15)
+Very Old Red Dragon:
+	Size Gargantuan (20, [long])
+	[Reach 15, bite 20]
+	Attack (bite(4d6, G, bsp, true, 20), true)
+	Attack (claw(2d8, G, bsp, true, 15), false, 2)
+	Attack (wing(2d6,G, B, true, 15), false, 2)
+	Attack (tail slap(2d8,G,B,true,15), false)
+
+** should reorganize csv/parser so size & space/reach read around same time

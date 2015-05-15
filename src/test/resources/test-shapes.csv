@@ -1,0 +1,8 @@
+# this is a comment. Ignore it.
+Baboon|1|Medium|Animal|15/14/12|1|m40c30|5/5|bite(p1d6)|
+Badger|1|Small|Animal|8/17/15|1|m30b10|5/5|2claws(p1d2)+bite(s1d3)|Rage
+Eagle|1|Small|Animal|10/15/12|1|m10f80(average)|5/5|2talon(p1d4)+bite(s1d4)|
+Small Viper|1|Small|Animal|6/17/11|3|m20c20s20|5/5|bite(p1d2,poison)|Poison[1d6 Con,1d6 Con,Fort neg/Con]
+Leopard|3|Medium|Animal|16/19/15|1|m40c20|5/5|bite(p1d6)+2claw(s1d3)|Improved Grab[bite,rake],Pounce,Rake[s1d3]
+Shrieker Fungus|2|Medium|Plant|null/null/13|3|m0|5/0||shriek[piercing sound lasting 1d3 rounds]
+Dire Shark|18|Huge|Animal(Aquatic)|23/15/17|7|s60|15/10|bite(p1d10)|improved grab[bite],swallow whole[2d6+6(B)+1d8+4(acid),25]

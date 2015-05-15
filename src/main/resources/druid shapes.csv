@@ -1,0 +1,107 @@
+# replace comma delimiter with rarer character| or use json?
+# Name|#HD|Size|Type|Str/Dex/Con|NA|Speed|Space/Reach|Attacks|SpAttacks(type)[text]
+Ape|4|Large|Animal|21/15/14|3|m30c30|10/10|2claws(p1d6)+bite(s1d6)|
+Baboon|1|Medium|Animal|15/14/12|1|m40c30|5/5|bite(p1d6)|
+Badger|1|Small|Animal|8/17/15|1|m30b10|5/5|2claws(p1d2)+bite(s1d3)|Rage(Ex)[On taking dmg, fly into berserk rage, fighting to death. Gain +4 Str,+4 Con,-2 AC; cannot end voluntarily]
+Bat|1/4|Diminutive|Animal|1/15/10|0|m5f40(good)|1/0||
+Black Bear|3|Medium|Animal|19/13/15|2|m40|5/5|2claws(p1d4)+bite(s1d6)|
+Brown Bear|6|Large|Animal|27/13/19|5|m40|10/5|2claws(p1d8)+bite(s2d6)|Improved grab(Ex)[on hit with claw, can start grapple as free action w/o AoO]
+Polar Bear|8|Large|Animal|27/13/19|5|m40s30|10/5|2claws(p1d8)+bite(s2d6)|Improved grab(Ex)[on hit with claw, can start grapple as free action w/o AoO]
+Bison|5|Large|Animal|22/10/16|4|m40|10/5|gore(p1d8)|Stampede(Ex)[Frightened herd flees away from danger, running over anything Large or smaller in their way| dealing 1d12 dmg/5 bison (Ref DC<save> half)][Str]
+Boar|3|Medium|Animal|15/10/17|6|m40|5/5|gore(p1d8)|Ferocity(Ex)[Fight without penalties while disabled or dying]
+Camel|3|Large|Animal|18/16/14|1|m50|10/5|bite(p1d4)|
+Cat|1/2|Tiny|Animal|3/15/10|0|m30|2.5/0|2claw(p1d2)+bite(s1d3)|
+Cheetah|3|Medium|Animal|16/19/15|1|m50|5/5|bite(p1d6)+2claw(s1d2)|Trip(Ex)[hit with claw or bite, free trip w/o touch atk or AoO; opponent cannot react on failure]
+Crocodile|3|Medium|Animal|19/12/17|4|m20s30|5/5|bite(p1d8)+tail slap(p1d12)|Improved grab(Ex)[bite]
+Giant Crocodile|7|Huge|Animal|27/12/19|7|m20s30|15/10|bite(p2d8)+tail slap(p1d12)|Improved grab(Ex)[bite]
+Dog|1|Small|Animal|13/17/15|1|m40|5/5|bite(p1d4)|
+Riding Dog|2|Medium|Animal|15/15/15|4|m40|5/5|bite(p1d6)|
+Donkey|2|Medium|Animal|10/13/12|2|m30|5/5|bite(p1d2)|
+Eagle|1|Small|Animal|10/15/12|1|m10f80(average)|5/5|2talon(p1d4)+bite(s1d4)|
+Elephant|11|Huge|Animal|30/10/21|7|m40|15/10|gore(p2d8)+slam(p2d6)+2stamp(s2d6)|Trample(Ex)[2d8+15,Reflex half,Str]
+Hawk|1|Tiny|Animal|6/17/10|2|m10f60(average)|2.5/0|talons(p1d4)|
+Heavy Horse|3|Large|Animal|16/13/15|3|m50|10/5|2hoof(s1d6)|
+Light Horse|3|Large|Animal|14/13/15|3|m60|10/5|2hoof(s1d6)|
+Heavy Warhorse|4|Large|Animal|18/13/17|4|m50|10/5|2hoof(p1d6)+bite(s1d4)|
+Light Warhorse|3|Large|Animal|16/13/17|3|m60|10/5|2hoof(p1d6)+bite(s1d3)|
+Hyena|2|Medium|Animal|14/15/15|2|m50|5/5|bite(p1d6)|Trip(bite)
+Leopard|3|Medium|Animal|16/19/15|1|m40c20|5/5|bite(p1d6)+2claw(s1d3)|Improved Grab[bite,rake],Pounce,Rake[s1d3]
+Lion|5|Large|Animal|21/17/15|3|m40|10/5|2claw(p1d4)+bite(s1d8)|Improved Grab[bite,rake],Pounce,Rake[s1d4]
+Lizard|0.5|Tiny|Animal|3/15/10|0|m20c20|bite(p1d4)|
+Monitor Lizard|3|Medium|Animal|17/15/17|3|m30s30|bite(p1d8)|
+Manta Ray|4|Large|Animal(Aquatic)|15/11/10|3|s30|10/5|ram(p1d6)|
+Monkey|1|Tiny|Animal|3/15/10|0|m30c30|2.5/0|bite(p1d3)|
+Mule|3|Large|Animal|16/13/17|3|m30|10/5|2hoof(p1d4)|
+Octopus|2|Small|Animal(Aquatic)|12/17/11|2|m20s30|5/5|arms(p0)+bite(s1d3)|Improved Grab[arms,bite]
+Giant Octopus|8|Large|Animal(Aquatic)|20/15/13|7|m20s30|10/10(tentacle 20)|8tentacle(p1d4)+bite(s1d8)|Improved Grab[tentacle,constrict],Constrict[2d8]
+Owl|1|Tiny|Animal|4/17/10|2|m10f40(average)|2.5/0|talons(p1d4)|
+Pony|2|Medium|Animal|13/13/12|2|m40|5/5|2hoof(s1d3)|
+Warpony|2|Medium|Animal|15/13/14|2|m40|5/5|2hoof(p1d3)|
+Porpoise|2|Medium|Animal|11/17/13|2|s80|5/5|slam(p2d4)|
+Rat|0.25|Tiny|Animal|2/15/10|0|m15c15s15|2.5/0|bite(p1d3)|
+Raven|0.25|Tiny|Animal|1/15/10|0|m10f40(average)|2.5/0|claws(p1d2)|
+Rhinoceros|8|Large|Animal|26/10/21|7|m30|10/5|gore(p1d8)|Powerful Charge[2d8]
+Medium Shark|3|Medium|Animal(Aquatic)|13/15/13|3|s60|5/5|bite(p1d6)|
+Large Shark|7|Large|Animal(Aquatic)|17/15/13|4|s60|10/5|bite(p1d8)|
+Huge Shark|10|Huge|Animal(Aquatic)|21/15/15|5|s60|15/10|bite(p2d6)|
+Constrictor Snake|3|Medium|Animal|17/17/13|2|m20c20s20|5/5|bite(p1d3)|Constrict[p1d3],Improved Grab[bite,constrict]
+Giant Constrictor Snake|11|Huge|Animal|25/17/13|4|m20c20s20|15/10|bite(p1d8)|Constrict[p1d8],Improved Grab[bite,constrict]
+Tiny Viper|0.25|Tiny|Animal|4/17/11|2|m15c15s15|2.5/0|bite(p1,poison)|Poison[1d6 Con,1d6 Con,Fort neg/Con]
+Small Viper|1|Small|Animal|6/17/11|3|m20c20s20|5/5|bite(p1d2,poison)|Poison[1d6 Con,1d6 Con,Fort neg/Con]
+Medium Viper|2|Medium|Animal|8/17/11|3|m20c20s20|5/5|bite(p1d4,poison)|Poison[1d6 Con,1d6 Con,Fort neg/Con]
+Large Viper|3|Large|Animal|10/17/11|3|m20c20s20|10/5|bite(p1d4,poison)|Poison[1d6 Con,1d6 Con,Fort neg/Con]
+Huge Viper|6|Huge|Animal|16/15/13|5|m20c20s20|15/10|bite(p1d6,poison)|Poison[1d6 Con,1d6 Con,Fort neg/Con]
+Squid|3|Medium|Animal(Aquatic)|14/17/11|3|s60|5/5|arms(p0)+bite(s1d6)|Improved grab[arms,bite]
+Giant Squid|12|Huge|Animal(Aquatic)|26/17/13|6|s80|15/15(tentacle 30)|10tentacle(p1d6)+bite(s2d8)|constrict[p1d6],improved grab[tentacle,constrict]
+Tiger|6|Large|Animal|23/15/17|3|m40|10/5|2claw(p1d6)+bite(s1d8)|improved grab[claw/bite,rake],pounce,rake[s1d6]
+Toad|0.25|Diminutive|Animal|1/12/11|0|m5|1/0||
+Weasel|0.5|Tiny|Animal|3/15/10|0|m20c20|2.5/0|bite(p1d3)|attach[bite]
+Baleen Whale|12|Gargantuan|Animal|35/13/22|9|s40|20/15|tail slap(p1d8)|
+Cachalot Whale|12|Gargantuan|Animal|35/13/24|9|s40|20/15|bite(p3d6)+tail slap(s1d8)|
+Orca|9|Huge|Animal|27/15/21|6|s50|15/10|bite(p2d6)|
+Wolf|2|Medium|Animal|13/15/15|2|m50|5/5|bite(p1d6)|trip[bite]
+Wolverine|3|Medium|Animal|14/15/19|2|m30b10c10|5/5|2claw(p1d4)+bite(s1d6)|Rage
+Dire Ape|5|Large|Animal|22/15/14|4|m30c15|10/10|2claw(p1d6)+bite(s1d8)|rend[claw,2d6]
+Dire Badger|3|Medium|Animal|14/17/19|3|m30b10|5/5|2claw(p1d4)+bite(s1d6)|rage
+Dire Bat|4|Large|Animal|17/22/17|5|m20f40(good)|10/5|bite(p1d8)|
+Dire Bear|12|Large|Animal|31/13/19|7|m40|10/5|2claw(p2d4)+bite(s2d8)|improved grab[claw]
+Dire Boar|7|Large|Animal|27/10/17|6|m40|10/5|gore(p1d8)|ferocity
+Dire Lion|8|Large|Animal|25/15/17|4|m40|10/5|2claw(p1d6)+bite(s1d8)|improved grab[bite,rake],pounce,rake[s1d6]
+Dire Rat|1|Small|Animal|10/17/12|1|m40c20|5/5|bite(p1d4,disease)|disease[filth fever,bite,Con]
+Dire Shark|18|Huge|Animal(Aquatic)|23/15/17|7|s60|15/10|bite(p1d10)|improved grab[bite],swallow whole[2d6+6(B)+1d8+4(acid),25]
+Dire Tiger|16|Large|Animal|27/15/17|6|m40|10/5|2claw(p1d6)+bite(s2d6)|improved grab[bite,rake],pounce,rake[s1d6]
+Dire Weasel|3|Medium|Animal|14/19/10|2|m40|5/5|bite(p1d6)|attach[bite],blood drain(1d4 Con damage each round attached)
+Dire Wolf|6|Large|Animal|25/15/17|3|m50|10/5|bite(p1d8)|trip[bite]
+Dire Wolverine|5|Large|Animal|22/17/19|4|m30c10|10/5|2claw(p1d6)+bite(s1d8)|Rage
+Deinonychus|4|Medium|Animal|19/15/19|5|m60|5/5|talons(p1d8)+2foreclaws(s1d3)+bite(s2d4)|Pounce
+Elasmosaurus|10|Huge|Animal|26/14/22|3|m20s50|15/10|bite(p2d8)|
+Megaraptor|8|Large|Animal|21/15/21|6|m60|10/5|talons(p2d6)+2foreclaws(s1d4)+bite(s1d8)|Pounce
+Triceratops|16|Huge|Animal|30/9/25|11|m30|15/10|gore(p2d8)|Powerful Charge[4d8],trample[2d12+15,Ref half,Str]
+Tyrannosaurus|18|Huge|Animal|28/12/21|5|m40|15/10|bite(p2d6)|improved grab[bite],swallow whole[2d8+8 (B) + 8 acid,25]
+# non-MM animals
+# Special attacks -- go through MM glossary and make sure these are all defined correctly above/below!
+Swallow Whole (Ex): if start turn w/ opponent up to one size smaller held in mouth, grapple check (pin) to swallow and bite opponent. {take <dmg1> in stomach}, interior AC is {10+NA/2}; <dmg2> to escape. Gullet can hold <???> creatures.
+Disease (Ex): <infection>, Fort DC <save1> neg; incubation period <time1>; damage <dmg1>
+Ferocity (Ex): fight without penalty while disabled or dying
+Poison (Ex): initial damage <dmg1>, secondary damage <dmg2>. <save1-a> {save2} <save1-b>
+Improved Grab (Ex): hit with <atk1>, auto-damage on grapple with <atk2>
+Trip (Ex): hit with <atk1>, attempt to trip ({BAB+max(STR,DEX)}) as free action w/o touch atk or AoO, no counter-trip
+Pounce (Ex): on charging a foe, make a full attack, including rake attacks when available
+Rake (Ex): 
+Constrict (Ex): deal <dmg1> on successful grapple check
+Powerful Charge (Ex): attack deals <dmg1> on charge, in addition to normal benefits & hazards
+Rage (Ex): take dmg in combat, fly into berserk rage until it or opponent is dead. gain +4Str/+4Con/-2AC. cannot end voluntarily
+Rend (Ex): hit with both <atk1> to automatically deal extra <dmg1> dmg.
+Trample (Ex): 
+#unique to weasels(& stirge?)
+Attach (Ex): if hit with <atk1>, latch on and automatically deal <atk1> dmg each round it is attached. <creature> loses Dexterity bonus to AC, can be struck with weapon or grappled itself. to remove attached <creature> via grappling, opponent must pin creature.
+
+
+# Plants
+Assasin Vine|4|Large|Plant|20/10/16|6|m5|10/10(vine 20)|slam(p1d6)|constrict[1d6],improved grab[slam]
+Shrieker Fungus|2|Medium|Plant|null/null/13|3|m0|5/0||shriek[piercing sound lasting 1d3 rounds]
+Violet Fungus|2|Medium|Plant|14/8/16|4|m10|5/10|4tentacle(p1d6,poison)|poison[1d4Str+1d4Con,1d4Str+1d4Con,Fort neg,Con]
+Phantom Fungus|2|Medium|Plant|14/10/16|4|m20|5/5|bite(p1d6)|
+Shambling Mound|8|Large|Plant|21/10/17|11|m20s20|10/10|2slam(p2d6)|improved grab[slam],constrict[2d6]
+Tendriculos|9|Huge|Plant|28/9/22|9|m20|15/15|bite(p2d8)+2tendril(s1d6)|improved grab[bite],paralysis[3d6,Fort neg,Con],swallow whole[2d6(acid),25]
+Treant|7|Huge|Plant|29/8/21|13|m30|15/15|2slam(p2d6)|double damage against objects,trample[2d6+13,Ref half,Str]
