@@ -1,25 +1,28 @@
-package com.tempestsoul.dnd.d20;
+package com.tempestsoul.dnd.d20.model;
 
 public class Skill {
-	private String name;
-	private Ability baseAbility;
-	private Integer ranks;
-	private Integer miscBonusTotal;
-	
+	private final String name;
+	private final Ability baseAbility;
+	private Integer ranks = 0;
+	private Integer miscBonusTotal = 0;
+	private final boolean untrained;
+
+	public Skill(String name, Ability baseAbility) {
+		this(name, baseAbility, true);
+	}
+
+	public Skill(String name, Ability baseAbility, boolean untrained) {
+		this.name = name;
+		this.baseAbility = baseAbility;
+		this.untrained = untrained;
+	}
+
 	public String getName() {
 		return name;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
 	public Ability getBaseAbility() {
 		return baseAbility;
-	}
-	
-	public void setBaseAbility(Ability baseAbility) {
-		this.baseAbility = baseAbility;
 	}
 	
 	public Integer getRanks() {
@@ -37,6 +40,8 @@ public class Skill {
 	public Integer getMiscBonusTotal() {
 		return miscBonusTotal;
 	}
+
+	public boolean isUntrained() { return untrained; }
 	
 	@Override
 	public boolean equals(Object o) {

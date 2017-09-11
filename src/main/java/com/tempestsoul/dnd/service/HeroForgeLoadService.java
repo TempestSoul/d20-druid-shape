@@ -2,35 +2,28 @@ package com.tempestsoul.dnd.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
+import com.tempestsoul.dnd.d20.model.hitdie.DruidHitDieLevel;
+import com.tempestsoul.dnd.service.util.D20SkillData;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DateUtil;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.usermodel.*;
 
 import com.tempestsoul.MutableInt;
-import com.tempestsoul.dnd.d20.Ability;
-import com.tempestsoul.dnd.d20.AbilityScore;
-import com.tempestsoul.dnd.d20.Creature;
-import com.tempestsoul.dnd.d20.CreatureSubType;
-import com.tempestsoul.dnd.d20.CreatureType;
-import com.tempestsoul.dnd.d20.Size;
-import com.tempestsoul.dnd.d20.Skill;
+import com.tempestsoul.dnd.d20.model.Ability;
+import com.tempestsoul.dnd.d20.model.AbilityScore;
+import com.tempestsoul.dnd.d20.model.Creature;
+import com.tempestsoul.dnd.d20.model.CreatureSubType;
+import com.tempestsoul.dnd.d20.model.CreatureType;
+import com.tempestsoul.dnd.d20.model.Size;
+import com.tempestsoul.dnd.d20.model.Skill;
 import com.tempestsoul.dnd.service.util.D20ClassData;
 
 public class HeroForgeLoadService implements CharacterLoadService {
 
 	// HeroForge constants
 	private static final EnumSet<Ability> abilities = EnumSet.of(Ability.STR, Ability.DEX, Ability.CON, Ability.INT, Ability.WIS, Ability.CHA);
-	
-	@Override
+
 	public Creature loadCharacter(File file) {
 		Creature character = new Creature();
 		
@@ -46,6 +39,7 @@ public class HeroForgeLoadService implements CharacterLoadService {
 			character.setStats(stats);
 			
 			// TODO Parse skills (available & base stat)
+			parseSkills(character, charSheet);
 			
 			// Parse race to get type/subtype, ability adjustments, etc.
 			parseRacialInfo(character, charSheet);
@@ -140,12 +134,12 @@ public class HeroForgeLoadService implements CharacterLoadService {
 			}
 		}
 		character.setHitPoints(hp);
-		character.setNumHitDice(iNumHitDice);
+		//character.setNumHitDice(iNumHitDice);
 		if(iNumHitDice > 20)
 			throw new UnsupportedOperationException("Cannot accurately load characters with more than 20 HD");
 		
 		MutableInt druidLvl = classes.get(D20ClassData.DRUID);
-		character.setDruidLvl((druidLvl == null ? 0 : druidLvl.getValue()));
+		character.setClassLvl(DruidHitDieLevel.class, druidLvl == null ? 0 : druidLvl.getValue());
 		
 		int iBab = 0, iFort = 0, iRef = 0, iWill = 0;
 		for(D20ClassData charClass : classes.keySet()) {
@@ -168,7 +162,6 @@ public class HeroForgeLoadService implements CharacterLoadService {
 	 * Figures out type and subtypes based on race id, template, etc.
 	 * ... is what it should do, but I'm just using race id for now.
 	 * @param character
-	 * @param raceId
 	 */
 	protected void parseRacialInfo(Creature character, Sheet charSheet) {
 		Double raceId = getNumericCellValue(charSheet, 7, 4);
@@ -195,14 +188,41 @@ public class HeroForgeLoadService implements CharacterLoadService {
 	
 	/**
 	 * Parses the character's skills using the character sheet.
-	 * Handles cross-class and class skill point conversion.
+	 * (TBC) Handles cross-class and class skill point conversion.
 	 * @param character
 	 * @param charSheet
 	 */
-	void parseSkills(Creature character, Sheet charSheet) {
+	void parseSkills(Creature character, Sheet charSheet) {	// @param going to need a list of classes in order by level eventually...
+		List<Skill> skills = new ArrayList<>();	// D101:BN179 Skills/Points
 		// uhoh. Need to get what class skills are for each level so we can calculate the ranks
 		// cross-class: 2 pts = 1 rank; class: 1 pt = 1 rank
 		// also need to get the base ability for each skill somehow (HF save sheet doesn't have it)
+		for (int i = 100; i < 179; ++i) {	// column
+			// parse skill name
+			String skillName = getCellText(charSheet, i, 3);
+			if (skillName != null) {
+				skillName = skillName.replace("¹", "");
+				Skill skill = D20SkillData.convertToSkill(skillName);
+				if (skill == null) {
+					skill = new Skill(skillName, null, true);
+				}
+				Double ranks = 0d;
+				for (int j = 6; j <= 65; ++j) {    // row
+					Double classRank = getNumericCellValue(charSheet, i, j);
+					ranks += classRank == null ? 0d : classRank;
+				}
+				// TODO figure out cross-class
+				if (D20ClassData.DRUID.isClassSkill(skill.getName())) {
+					skill.setRanks(ranks.intValue());
+				} else {
+					skill.setRanks(ranks.intValue() / 2);
+				}
+				if (skill.getRanks() > 0 || skill.isUntrained()) {
+					skills.add(skill);
+				}
+			}
+		}
+		character.setSkills(skills);
 	}
 	
 	private void mergeAbilities(Map<Ability, AbilityScore> baseScores, Map<Ability, Integer> modifiers) {
@@ -216,36 +236,38 @@ public class HeroForgeLoadService implements CharacterLoadService {
 
 	private Double getNumericCellValue(Sheet sheet, int rowNum, int colNum) {
 		Row row = sheet.getRow(rowNum);
-		Cell cell = row.getCell(colNum);
+		Cell cell = (row == null) ? null : row.getCell(colNum);
 		Double value = null;
-		if(cell.getCellType() == Cell.CELL_TYPE_NUMERIC)
+		if (cell != null && cell.getCellTypeEnum() == CellType.NUMERIC)
 			value = cell.getNumericCellValue();
 		return value;
 	}
 
 	private String getCellText(Sheet sheet, int rowNum, int colNum) {
 		Row row = sheet.getRow(rowNum);
-		Cell cell = row.getCell(colNum);
+		Cell cell = row != null ? row.getCell(colNum) : null;
 		String text = null;
-		switch (cell.getCellType()) {
-        case Cell.CELL_TYPE_STRING:
-            text = cell.getStringCellValue();
-            break;
-        case Cell.CELL_TYPE_NUMERIC:
-            if (DateUtil.isCellDateFormatted(cell)) {
-                text = cell.getDateCellValue().toString();
-            } else {
-                text = Double.toString(cell.getNumericCellValue());
-            }
-            break;
-        case Cell.CELL_TYPE_BOOLEAN:
-            text = Boolean.toString(cell.getBooleanCellValue());
-            break;
-        case Cell.CELL_TYPE_FORMULA:
-            text = cell.getCellFormula();
-            break;
-        default:
-        	break;
+			if (cell != null) {
+			switch (cell.getCellTypeEnum()) {
+			case STRING:
+				text = cell.getStringCellValue();
+				break;
+			case NUMERIC:
+				if (DateUtil.isCellDateFormatted(cell)) {
+					text = cell.getDateCellValue().toString();
+				} else {
+					text = Double.toString(cell.getNumericCellValue());
+				}
+				break;
+			case BOOLEAN:
+				text = Boolean.toString(cell.getBooleanCellValue());
+				break;
+			case FORMULA:
+				text = cell.getCellFormula();
+				break;
+			default:
+				break;
+			}
 		}
 		return text;
 	}

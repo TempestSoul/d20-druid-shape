@@ -1,59 +1,24 @@
-package com.tempestsoul.dnd.d20;
+package com.tempestsoul.dnd.d20.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
-/*
- * type/subtype: druid
-gain aquatic subtype of assumed
-size: wild shape
-natural weapons: shape
-natural armor: shape
-movement: shape
-special attacks(Ex): shape
-special qualities: druid
-abilities/attacks(Sp,Su): druid
-physical ability scores: shape
-mental ability scores: druid
-base save: druid
-skills: druid
-feats: druid
-BAB: druid
-hp: druid
-spellcasting: (Natural Spell) ? true : false
-spoken language: shape
+import com.tempestsoul.dnd.d20.model.hitdie.DruidHitDieLevel;
 
-druid items: disappear
-shape items: fall off
-+10 disguise as form
-shape HD <= druid HD
-
-class Animal {
-    int iHitDice;
-    String sName;
-    boolean isAquatic;
-    Size size;
-    int iStrength;
-    int iDexterity;
-    int iConstitution;
-    int iNaturalArmor;
-    List<Attack> attacks;
-    String sMovement;
-    List<SpecialAttack> specialAttacks;
-    int iSpace; int iReach;
-}
- */
 public class Creature {
-	String sName;
-	double numHitDice;
+	private String name;
+
+	private Size size;
+	private Map<Ability, AbilityScore> stats;
+    private CreatureType type;
+    private List<CreatureSubType> subTypes;
+    private String movement;    // TODO split into pieces?
+
+    Map<Class<? extends HitDieLevel>, Integer> hitDice = new HashMap<>();
+    private int iNaturalArmor;
+
 	int iHitPoints;
-	int iDruidLvl;
-	CreatureType type;
-	List<CreatureSubType> subTypes;
-	Size size;
-	Map<Ability, AbilityScore> stats;
+	//int iDruidLvl;
 	//TODO implement
 	List<Skill> skills;
 	List<String> feats;
@@ -64,17 +29,14 @@ public class Creature {
 	int iBaseWill; // good
 	
 	// Creature-specific
-	List<Attack> attacks;
-	List<SpecialAttack> specialAtks;
-	String movement;
-	int iNaturalArmor;
+	private List<Attack> attacks;
+	private List<SpecialAttack> specialAtks;
 	
 	public Creature() { }
 	public Creature(Creature c) {
-		sName = c.sName;
-		numHitDice = c.numHitDice;
+		// TODO update with new fields
+		name = c.name;
 		iHitPoints = c.iHitPoints;
-		iDruidLvl = c.iDruidLvl;
 		type = c.type;
 		subTypes = new ArrayList<CreatureSubType>(c.subTypes);
 		size = c.size;
@@ -90,61 +52,23 @@ public class Creature {
 		movement = c.movement;
 		iNaturalArmor = c.iNaturalArmor;
 	}
-	
-	// move to separate class? really a class ability, not something a character does...
-	//http://www.wizards.com/default.asp?x=dnd/rg/20060523a
-	public Creature wildShape(Creature animal) {
-		if(iDruidLvl < 5) {
-			throw new RuntimeException("Druids cannot wild shape until level 5; druid level is " + iDruidLvl);
-		}
-		if(animal.numHitDice > numHitDice) {
-			throw new IllegalArgumentException("A druid cannot wild shape into creatures with more hit dice");
-		}
-		// check size & type: based on druid lvl (or does type go into separate functions? elemental should)
-		// TODO finish implementing (is anything left?)
-		Creature shape = new Creature(this);
-		// size: wild shape
-		shape.size = animal.size;
-		// TODO (space/reach: wild shape)
-		// physical ability scores: shape
-		// mental ability scores: druid
-		shape.setPhysicalScores(animal.stats);
-		shape.setMentalScores(this.stats);	// redundant, but oh well
-		// natural weapons: shape
-		shape.attacks = animal.attacks;
-		// if old creature has aquatic, add aquatic
-		if(animal.isAquatic() && !shape.isAquatic())
-			shape.subTypes.add(CreatureSubType.Aquatic);
-		// natural armor: shape
-		shape.iNaturalArmor = animal.iNaturalArmor;
-		// movement: shape
-		shape.movement = animal.movement;
-		// TODO don't forget the skill bonuses from movement speeds!
-		
-		// lose Ex special attacks
-		for(SpecialAttack atk : this.specialAtks) {
-			if(atk.type.equals(SpecialAbilityType.EXTRAORDINARY))
-				shape.specialAtks.remove(atk);
-		}
-		// special attacks(Ex): shape
-		for(SpecialAttack atk : animal.specialAtks) {
-			SpecialAbilityType atkType = atk.type;
-			if(atkType.equals(SpecialAbilityType.EXTRAORDINARY)
-					|| atkType.equals(SpecialAbilityType.NATURAL))
-				shape.specialAtks.add(atk);
-		}
-		// NOT animal's racial skills, special qualities, type abilities, etc
-		
-		return shape;
+
+	public Integer findNumberOfHitDie() {
+		return hitDice.values().stream().collect(Collectors.summingInt(Integer::intValue));
 	}
-	
-	private void setPhysicalScores(Map<Ability, AbilityScore> src) {
+
+    public Integer findNumberOfHitDie(HitDieLevel hitDieLevel) {
+        Integer numHitDie = hitDice.get(hitDieLevel.getClass());
+        return numHitDie == null ? 0 : numHitDie;
+    }
+
+	public void setPhysicalScores(Map<Ability, AbilityScore> src) {
 		for(Ability stat : Ability.physicalScores) {
 			stats.put(stat, src.get(stat));
 		}
 	}
 	
-	private void setMentalScores(Map<Ability, AbilityScore> src) {
+	public void setMentalScores(Map<Ability, AbilityScore> src) {
 		for(Ability stat : Ability.mentalScores) {
 			stats.put(stat, src.get(stat));
 		}
@@ -172,18 +96,19 @@ public class Creature {
 	}
 	
 	public int getArmorCount() {
-		// TODO implement
-		return 10 + stats.get(Ability.DEX).getModifier() + iNaturalArmor + size.getSizeMod();
+		//System.out.print(size.getSizeMod() + "+" + stats.get(Ability.DEX) + "+" + iNaturalArmor + "=");
+		return 10 + stats.get(Ability.DEX).getModifier() + iNaturalArmor + size.getSizeMod();	// + dodge + misc
 	}
 	
 	public int getTouchArmorCount() {
-		// TODO implement
-		return 10 + stats.get(Ability.DEX).getModifier() + size.getSizeMod();
+		//System.out.print(stats.get(Ability.DEX).getModifier() + "+" + size.getSizeMod() + "=");
+		return 10 + stats.get(Ability.DEX).getModifier() + size.getSizeMod();	// + dodge + misc
 	}
 	
 	public int getFlatArmorCount() {
-		// TODO implement
-		return 10 + iNaturalArmor + size.getSizeMod();
+		//System.out.print(iNaturalArmor + "+" + size.getSizeMod() + "=");
+		int dexMod = stats.get(Ability.DEX).getModifier();
+		return 10 + (dexMod < 0 ? dexMod : 0) + iNaturalArmor + size.getSizeMod();	// + misc
 	}
 	
 	public boolean isAquatic() {
@@ -191,23 +116,15 @@ public class Creature {
 	}
 	
 	public String getName() {
-		return sName;
+		return name;
 	}
 	
 	public void setName(String name) {
-		this.sName = name;
+		this.name = name;
 	}
 	
 	public double getNumHitDice() {
-		return numHitDice;
-	}
-	
-	public void setNumHitDice(int numHitDice) {
-		this.numHitDice = numHitDice;
-	}
-	
-	public void setNumHitDice(double numHitDice) {
-		this.numHitDice = numHitDice;
+		return findNumberOfHitDie();
 	}
 	
 	public int getHitPoints() {
@@ -219,11 +136,16 @@ public class Creature {
 	}
 	
 	public int getDruidLvl() {
-		return iDruidLvl;
+		return getClassLvl(DruidHitDieLevel.class);
 	}
-	
-	public void setDruidLvl(int druidLvl) {
-		this.iDruidLvl = druidLvl;
+
+	public int getClassLvl(Class<? extends HitDieLevel> hitDieClass) {
+		Integer numHitDie = hitDice.get(hitDieClass);
+		return numHitDie == null ? 0 : numHitDie;
+	}
+
+	public void setClassLvl(Class<? extends HitDieLevel> hitDieClass, int numHitDie) {
+		hitDice.put(hitDieClass, numHitDie);
 	}
 	
 	public CreatureType getType() {
@@ -290,6 +212,15 @@ public class Creature {
 	
 	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
+	}
+
+	public Integer getSkillMod(String skillName) {
+		Skill skill = getSkillByName(skillName);
+		if (skill == null) return 0;
+		else {
+			AbilityScore score = getStats().get(skill.getBaseAbility());
+			return score != null ? score.getModifier() + skill.getRanks() + skill.getMiscBonusTotal() : skill.getRanks() + skill.getMiscBonusTotal();
+		}
 	}
 	
 	public List<String> getFeats() {

@@ -6,11 +6,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+import com.tempestsoul.dnd.d20.model.Ability;
 import org.junit.Test;
 
-import com.tempestsoul.dnd.d20.Creature;
-import com.tempestsoul.dnd.d20.CreatureType;
-import com.tempestsoul.dnd.d20.Size;
+import com.tempestsoul.dnd.d20.model.Creature;
+import com.tempestsoul.dnd.d20.model.CreatureType;
+import com.tempestsoul.dnd.d20.model.Size;
 
 public class HeroForgeLoaderTest {
 
@@ -42,11 +43,12 @@ public class HeroForgeLoaderTest {
 //		assertEquals(new Integer(2), nimue.getSkillByName("Search").getMiscBonusTotal());
 //		assertEquals(new Integer(2), nimue.getSkillByName("Spot").getMiscBonusTotal());
 		// test for class skill enhancements (ugh)
-//		assertEquals(new Integer(2), nimue.getSkillByName("Knowledge(nature)").getMiscBonusTotal());
+		//assertEquals(new Integer(2), nimue.getSkillByName("Knowledge (nature)").getMiscBonusTotal());
 //		assertEquals(new Integer(2), nimue.getSkillByName("Survival").getMiscBonusTotal());
 		// test for parsed skill ranks
-//		assertEquals(new Integer(9), nimue.getSkillByName("Survival").getRanks());
-//		assertEquals(new Integer(1), nimue.getSkillByName("Move Silently").getRanks());
+		assertEquals(new Integer(9), nimue.getSkillByName("Survival").getRanks());	// class
+		assertEquals(Ability.DEX, nimue.getSkillByName("Move Silently").getBaseAbility());
+		assertEquals(new Integer(1), nimue.getSkillByName("Move Silently").getRanks());	// cross-class
 		// test for loaded feats
 	}
 }

@@ -5,19 +5,22 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.tempestsoul.dnd.d20.Ability;
-import com.tempestsoul.dnd.d20.AbilityScore;
-import com.tempestsoul.dnd.d20.Creature;
-import com.tempestsoul.dnd.d20.CreatureSubType;
-import com.tempestsoul.dnd.d20.CreatureType;
-import com.tempestsoul.dnd.d20.Size;
+import com.tempestsoul.dnd.d20.model.Ability;
+import com.tempestsoul.dnd.d20.model.AbilityScore;
+import com.tempestsoul.dnd.d20.model.Creature;
+import com.tempestsoul.dnd.d20.model.CreatureSubType;
+import com.tempestsoul.dnd.d20.model.CreatureType;
+import com.tempestsoul.dnd.d20.model.Size;
+import com.tempestsoul.dnd.d20.model.hitdie.DruidHitDieLevel;
+import com.tempestsoul.dnd.d20.model.hitdie.FighterHitDieLevel;
 
 public class CharacterStubLoader implements CharacterLoadService {
 
 	@Override
 	public Creature loadCharacter(File file) {
 		Creature druid = new Creature();
-		druid.setDruidLvl(8);
+		druid.setClassLvl(DruidHitDieLevel.class, 8);
+		druid.setClassLvl(FighterHitDieLevel.class, 2);
 		druid.setBaseAtkBonus(6);
 		druid.setBaseFort(6);
 		druid.setBaseRef(2);
@@ -27,7 +30,7 @@ public class CharacterStubLoader implements CharacterLoadService {
 		druid.setMovement("30 ft, fly 2000000000 mi");
 		druid.setName("Spawny McCamperson");// <br/> someone isn't checking injected strings");
 		druid.setNaturalArmor(0);
-		druid.setNumHitDice(10);
+		//druid.setNumHitDice(10);
 		druid.setSize(Size.Large);
 		druid.setType(CreatureType.DRAGON);
 		druid.setSubTypes(Arrays.asList(CreatureSubType.Fire, CreatureSubType.Evil));

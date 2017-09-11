@@ -1,4 +1,4 @@
-package com.tempestsoul.dnd.d20;
+package com.tempestsoul.dnd.d20.model;
 
 public enum Size {
 	Fine (8, -16, 16), Diminutive (4, -12, 12),	Tiny (2, -8, 8), 

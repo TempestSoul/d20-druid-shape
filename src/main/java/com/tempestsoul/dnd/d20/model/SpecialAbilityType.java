@@ -1,4 +1,4 @@
-package com.tempestsoul.dnd.d20;
+package com.tempestsoul.dnd.d20.model;
 
 public enum SpecialAbilityType {
 	NATURAL {
@@ -43,4 +43,16 @@ public enum SpecialAbilityType {
 	public abstract boolean isCancelledBySpellResistance();
 	public abstract boolean isSuppressedByAntimagic();
 	public abstract boolean doesProvokeAttackOfOpportunity();
+
+	public static SpecialAbilityType fromAbbrev(String abbrev) {
+		if (abbrev == null || abbrev.isEmpty() || "Ex".equals(abbrev)) {
+			return EXTRAORDINARY;
+		} else if ("Su".equals(abbrev)) {
+			return SUPERNATURAL;
+		} else if ("Sp".equals(abbrev)) {
+			return SPELL_LIKE;
+		} else {
+			return null;
+		}
+	}
 }

@@ -1,4 +1,4 @@
-package com.tempestsoul.dnd.d20;
+package com.tempestsoul.dnd.d20.model;
 
 public class AbilityScore {
 	
@@ -25,7 +25,7 @@ public class AbilityScore {
 	}
 	
 	public Integer getModifier() {
-		return (score - 10) /2;
+		return ((score >= 10 ? score : score-1) - 10) / 2;
 	}
 	
 	@Override

@@ -15,6 +15,12 @@ local.properties
 .classpath
 .settings/
 .loadpath
+out/
+
+# intellij specific gitignore
+.idea/
+# maven
+target/
 
 # Package Files #
 *.jar

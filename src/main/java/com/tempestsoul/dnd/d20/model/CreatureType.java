@@ -1,4 +1,4 @@
-package com.tempestsoul.dnd.d20;
+package com.tempestsoul.dnd.d20.model;
 
 
 public enum CreatureType {
