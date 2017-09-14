@@ -2,6 +2,6 @@ package com.tempestsoul.dnd.d20.model;
 
 
 public enum CreatureType {
-	ABERRATION, ANIMAL, CONSTRUCT, OOZE, ELEMENTAL, OUTSIDER, HUMANOID, DRAGON, FEY,
-	GIANT, MAGICAL_BEAST, MONSTROUS_HUMANOID, PLANT, UNDEAD, VERMIN;
+	Aberration, Animal, Construct, Ooze, Elemental, Outsider, Humanoid, Dragon, Fey,
+	Giant, MagicalBeast, MonstrousHumanoid, Plant, Undead, Vermin;
 }

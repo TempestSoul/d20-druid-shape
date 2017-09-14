@@ -42,13 +42,25 @@ public class Creature {
 		size = c.size;
 		stats = new HashMap<Ability, AbilityScore>(c.stats);
 		skills = new ArrayList<Skill>(c.skills);
-		feats = new ArrayList<String>(c.feats);
+		if (c.feats != null) {
+			feats = new ArrayList<String>(c.feats);
+		} else {
+			feats = new ArrayList<>();
+		}
 		iBaseAtkBonus = c.iBaseAtkBonus;
 		iBaseFort = c.iBaseFort;
 		iBaseRef = c.iBaseRef;
 		iBaseWill = c.iBaseWill;
-		attacks = new ArrayList<Attack>(c.attacks);
-		specialAtks = new ArrayList<SpecialAttack>(c.specialAtks);
+		if (c.attacks != null) {
+			attacks = new ArrayList<Attack>(c.attacks);
+		} else {
+			attacks = new ArrayList<>();
+		}
+		if (c.specialAtks != null) {
+			specialAtks = new ArrayList<SpecialAttack>(c.specialAtks);
+		} else {
+			specialAtks = new ArrayList<>();
+		}
 		movement = c.movement;
 		iNaturalArmor = c.iNaturalArmor;
 	}
@@ -72,6 +84,13 @@ public class Creature {
 		for(Ability stat : Ability.mentalScores) {
 			stats.put(stat, src.get(stat));
 		}
+	}
+
+	public Integer getInitiative() {
+		AbilityScore score = stats.get(Ability.DEX);
+		if(score == null)
+			return null;
+		return score.getModifier(); // + miscellaneous
 	}
 	
 	public Integer getFortSave() {
@@ -110,9 +129,27 @@ public class Creature {
 		int dexMod = stats.get(Ability.DEX).getModifier();
 		return 10 + (dexMod < 0 ? dexMod : 0) + iNaturalArmor + size.getSizeMod();	// + misc
 	}
+
+	public int getGrappleBonus() {
+		return getBaseAtkBonus() + stats.get(Ability.STR).getModifier() + size.getGrappleMod();	// + misc?
+	}
+
+	public int getAttackBonus(Attack attack) {
+		// if ranged or Weapon Finesse + light weapon, use Dex; else Str
+		// if MultiAttack, -2 instead of -5 for secondary natural attacks
+		return getBaseAtkBonus() + stats.get(Ability.STR).getModifier() + size.getSizeMod() + (attack.isPrimaryAtk() ? 0 : -5);
+	}
+
+	public int getDamageBonus(Attack attack) {	// if only 1 natural primary, then 1.5x str
+		return attack.isPrimaryAtk() ? stats.get(Ability.STR).getModifier() : stats.get(Ability.STR).getModifier()/2;
+	}
+
+	public int getSaveDC(SpecialAttack specialAttack) {
+		return specialAttack.getSavingThrowDC(hitDice.values().stream().mapToInt(Integer::intValue).sum(), getStats());
+	}
 	
 	public boolean isAquatic() {
-		return subTypes.contains(CreatureSubType.Aquatic);
+		return subTypes != null && subTypes.contains(CreatureSubType.Aquatic);
 	}
 	
 	public String getName() {
@@ -216,6 +253,10 @@ public class Creature {
 
 	public Integer getSkillMod(String skillName) {
 		Skill skill = getSkillByName(skillName);
+		return getSkillMod(skill);
+	}
+
+	public Integer getSkillMod(Skill skill) {
 		if (skill == null) return 0;
 		else {
 			AbilityScore score = getStats().get(skill.getBaseAbility());
@@ -293,5 +334,9 @@ public class Creature {
 	
 	public void setNaturalArmor(int naturalArmor) {
 		this.iNaturalArmor = naturalArmor;
+	}
+
+	public String toString() {
+		return String.format("%s (%s %s)", getName(), getSize().name(), getType().name());
 	}
 }

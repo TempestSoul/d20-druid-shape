@@ -1,9 +1,6 @@
 package com.tempestsoul.dnd.service;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -19,14 +16,11 @@ public class CsvShapeParser implements ShapeLoadService {
 	@Override
 	public List<Creature> loadShapes() {
 		List<Creature> shapes = null;
-		
-		File shapeFile = new File("src/main/resources/druid shapes.csv");
-		FileReader fileReader = null;
+
+		InputStreamReader fileReader = null;
 		try {
-			fileReader = new FileReader(shapeFile);
+			fileReader = new InputStreamReader(getClass().getResourceAsStream("/druid shapes.csv"));
 			shapes = parser.parseCreatureFile(fileReader);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} finally {
 			if(fileReader != null) {
 				try {

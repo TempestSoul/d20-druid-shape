@@ -59,10 +59,10 @@ public class SpecialAttack {
 		this.saveName = saveName;
 	}
 
-	int getSavingThrowDC(int iNumHitDice, Map<Ability, Integer> allScores) throws Exception {
+	int getSavingThrowDC(int iNumHitDice, Map<Ability, AbilityScore> allScores) {
 		if(!savingThrowReq)
-			throw new Exception("Cannot calculate saving throw for ability without saving throw!");
+			throw new UnsupportedOperationException("Cannot calculate saving throw for ability without saving throw!");
 		// TODO verify algorithm, add in extra bonuses
-		return 10 + iNumHitDice /2 + allScores.get(baseSave);
+		return 10 + iNumHitDice /2 + allScores.get(baseSave).getModifier();
 	}
 }

@@ -60,6 +60,7 @@ public class WildShapeServiceImpl implements WildShapeService {
         // check size & type: based on druid lvl (or does type go into separate functions? elemental should)
         // TODO finish implementing (is anything left?)
         Creature shape = new Creature(shaper);
+        shape.setName(shaper.getName() + " [" + creature.getName() + " Shape]");
         // size: wild shape
         shape.setSize(creature.getSize());
         // TODO (space/reach: wild shape)
@@ -79,16 +80,20 @@ public class WildShapeServiceImpl implements WildShapeService {
         // TODO don't forget the skill bonuses from movement speeds! (ugh. so swimSpd > X -> swim+Y, blabla...)
 
         // lose Ex special attacks
-        for(SpecialAttack atk : shaper.getSpecialAtks()) {
-            if(atk.getType().equals(SpecialAbilityType.EXTRAORDINARY))
-                shape.getSpecialAtks().remove(atk);
+        if (shaper.getSpecialAtks() != null) {
+            for (SpecialAttack atk : shaper.getSpecialAtks()) {
+                if (atk.getType().equals(SpecialAbilityType.EXTRAORDINARY))
+                    shape.getSpecialAtks().remove(atk);
+            }
         }
         // special attacks(Ex): shape
-        for(SpecialAttack atk : creature.getSpecialAtks()) {
-            SpecialAbilityType atkType = atk.getType();
-            if(atkType.equals(SpecialAbilityType.EXTRAORDINARY)
-                    || atkType.equals(SpecialAbilityType.NATURAL))
-                shape.getSpecialAtks().add(atk);
+        if (creature.getSpecialAtks() != null) {
+            for (SpecialAttack atk : creature.getSpecialAtks()) {
+                SpecialAbilityType atkType = atk.getType();
+                if (atkType.equals(SpecialAbilityType.EXTRAORDINARY)
+                        || atkType.equals(SpecialAbilityType.NATURAL))
+                    shape.getSpecialAtks().add(atk);
+            }
         }
         // NOT animal's racial skills, special qualities, type abilities, etc
 

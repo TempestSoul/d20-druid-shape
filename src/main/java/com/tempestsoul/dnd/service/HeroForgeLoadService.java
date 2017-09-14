@@ -168,7 +168,7 @@ public class HeroForgeLoadService implements CharacterLoadService {
 		// hack, such a hack. you didn't even add the elf's skill modifiers!
 		if(raceId == 3) {
 			// elf
-			character.setType(CreatureType.HUMANOID);
+			character.setType(CreatureType.Humanoid);
 			character.setSubTypes(Arrays.asList(CreatureSubType.Elf));
 			character.setSize(Size.Medium);
 			Map<Ability, Integer> modifiers = new HashMap<Ability, Integer>();
@@ -201,7 +201,7 @@ public class HeroForgeLoadService implements CharacterLoadService {
 			// parse skill name
 			String skillName = getCellText(charSheet, i, 3);
 			if (skillName != null) {
-				skillName = skillName.replace("¹", "");
+				skillName = skillName.replaceAll("[^A-Za-z0-9(). ]", "");
 				Skill skill = D20SkillData.convertToSkill(skillName);
 				if (skill == null) {
 					skill = new Skill(skillName, null, true);

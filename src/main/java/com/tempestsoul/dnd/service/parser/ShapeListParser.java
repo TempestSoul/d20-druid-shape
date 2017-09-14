@@ -100,16 +100,16 @@ public class ShapeListParser {
         int startSubtype = typeToken.indexOf('(');
         if (startSubtype >= 0)
             typeToken = typeToken.substring(0, startSubtype);
-        return CreatureType.valueOf(typeToken.toUpperCase());
+        return CreatureType.valueOf(typeToken);
     }
 
     private Class<? extends HitDieLevel> parseClass(CreatureType type) {
         Class<? extends HitDieLevel> typeClass = null;
         switch(type) {
-            case ANIMAL:
+            case Animal:
                 typeClass = AnimalHitDieLevel.class;
                 break;
-            case PLANT:
+            case Plant:
                 typeClass = PlantHitDieLevel.class;
                 break;
             default: break;
@@ -160,14 +160,15 @@ public class ShapeListParser {
                 .collect(Collectors.toList());
     }
 
-    private static final Pattern attackPattern = Pattern.compile("(?<num>\\d+)(?<name>)\\((?<type>[ps])(?<die>\\d+d\\d+)\\)");
+    private static final Pattern attackPattern = Pattern.compile("(?<num>\\d+)?(?<name>\\D+?)\\((?<type>[ps])(?<die>\\d+d\\d+)(?<special>.*)?\\)");
     private Attack parseAttack(String attackToken, String spaceReach) {
         Attack attack = null;
         Matcher atkMatcher = attackPattern.matcher(attackToken);
         if (atkMatcher.matches()) {
             attack = new Attack();
             attack.setName(atkMatcher.group("name"));
-            attack.setNumber(Integer.valueOf(atkMatcher.group("num")));
+            Integer numWeapons = atkMatcher.group("num") == null ? 1 : Integer.valueOf(atkMatcher.group("num"));
+            attack.setNumber(numWeapons);
             attack.setPrimaryAtk("p".equals(atkMatcher.group("type")));
             attack.setDmgDie(atkMatcher.group("die"));
             // TODO uh, reach?

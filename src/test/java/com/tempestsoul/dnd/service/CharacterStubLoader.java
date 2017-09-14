@@ -32,7 +32,7 @@ public class CharacterStubLoader implements CharacterLoadService {
 		druid.setNaturalArmor(0);
 		//druid.setNumHitDice(10);
 		druid.setSize(Size.Large);
-		druid.setType(CreatureType.DRAGON);
+		druid.setType(CreatureType.Dragon);
 		druid.setSubTypes(Arrays.asList(CreatureSubType.Fire, CreatureSubType.Evil));
 		Map<Ability, AbilityScore> stats = new HashMap<Ability, AbilityScore>();
 		stats.put(Ability.STR, new AbilityScore(10));

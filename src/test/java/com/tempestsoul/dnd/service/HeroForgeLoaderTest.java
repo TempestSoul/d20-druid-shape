@@ -27,7 +27,7 @@ public class HeroForgeLoaderTest {
 		assertEquals("Nimue ", nimue.getName());	// no, I don't know why she put an extra space in there
 		assertEquals(8, nimue.getDruidLvl());
 		assertEquals(Size.Medium, nimue.getSize());
-		assertEquals(CreatureType.HUMANOID, nimue.getType());
+		assertEquals(CreatureType.Humanoid, nimue.getType());
 		assertNotNull(nimue.getStats());
 		assertEquals(51, nimue.getHitPoints());
 		assertEquals(6, nimue.getBaseAtkBonus());

@@ -1,7 +1,7 @@
 package com.tempestsoul.dnd.d20.model;
 
 public enum SpecialAbilityType {
-	NATURAL {
+	NATURAL(null) {
 		@Override
 		public boolean isDispelled() { return false; }
 		@Override
@@ -10,7 +10,7 @@ public enum SpecialAbilityType {
 		public boolean isSuppressedByAntimagic() { return false; }
 		@Override
 		public boolean doesProvokeAttackOfOpportunity() { return false; }
-	}, EXTRAORDINARY {
+	}, EXTRAORDINARY("Ex") {
 		@Override
 		public boolean isDispelled() { return false; }
 		@Override
@@ -19,7 +19,7 @@ public enum SpecialAbilityType {
 		public boolean isSuppressedByAntimagic() { return false; }
 		@Override
 		public boolean doesProvokeAttackOfOpportunity() { return false; }
-	}, SPELL_LIKE {
+	}, SPELL_LIKE("Sp") {
 		@Override
 		public boolean isDispelled() { return true; }
 		@Override
@@ -28,7 +28,7 @@ public enum SpecialAbilityType {
 		public boolean isSuppressedByAntimagic() { return true; }
 		@Override
 		public boolean doesProvokeAttackOfOpportunity() { return true; }
-	}, SUPERNATURAL{
+	}, SUPERNATURAL("Su"){
 		@Override
 		public boolean isDispelled() { return false; }	
 		@Override
@@ -38,21 +38,23 @@ public enum SpecialAbilityType {
 		@Override
 		public boolean doesProvokeAttackOfOpportunity() { return true; }
 	};
-	
+
+	private String abbrev;
+	SpecialAbilityType(String abbrev) {
+		this.abbrev = abbrev;
+	}
 	public abstract boolean isDispelled();
 	public abstract boolean isCancelledBySpellResistance();
 	public abstract boolean isSuppressedByAntimagic();
 	public abstract boolean doesProvokeAttackOfOpportunity();
+	public String getAbbrev() { return abbrev; }
 
 	public static SpecialAbilityType fromAbbrev(String abbrev) {
-		if (abbrev == null || abbrev.isEmpty() || "Ex".equals(abbrev)) {
-			return EXTRAORDINARY;
-		} else if ("Su".equals(abbrev)) {
-			return SUPERNATURAL;
-		} else if ("Sp".equals(abbrev)) {
-			return SPELL_LIKE;
-		} else {
-			return null;
+
+		for (SpecialAbilityType type : values()) {
+			if (type.abbrev == abbrev)
+				return type;
 		}
+		return null;
 	}
 }

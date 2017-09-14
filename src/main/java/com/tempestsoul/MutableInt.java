@@ -9,6 +9,10 @@ package com.tempestsoul;
  */
 public class MutableInt {
 	int value = 1;
+	public MutableInt() {}
+	public MutableInt(int value) {
+		this.value = value;
+	}
 	public void inc() { ++value; }
 	public void dec() { --value; }
 	public void add(int addend) { value += addend; }
