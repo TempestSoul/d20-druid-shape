@@ -6,7 +6,6 @@ import java.util.*;
 
 import com.tempestsoul.dnd.d20.model.hitdie.DruidHitDieLevel;
 import com.tempestsoul.dnd.service.util.D20SkillData;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 
 import com.tempestsoul.MutableInt;
@@ -48,9 +47,6 @@ public class HeroForgeLoadService implements CharacterLoadService {
 			parseCharacterClasses(character, charSheet);
 			
 			// TODO feats
-		} catch (InvalidFormatException e) {
-			e.printStackTrace();
-			return null;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
@@ -82,9 +78,9 @@ public class HeroForgeLoadService implements CharacterLoadService {
 		int i = 1;
 		for(Ability ability : abilities) {
 			Double score = getNumericCellValue(charSheet, i, 4);
-			MutableInt count = abilityBoosts.get(new Double(i));
+			MutableInt count = abilityBoosts.get(Double.valueOf(i));
 			if(count != null)
-				score += abilityBoosts.get(new Double(i)).getValue();
+				score += abilityBoosts.get(Double.valueOf(i)).getValue();
 			stats.put(ability, new AbilityScore(score.intValue()));
 			i++;
 		}
@@ -238,8 +234,9 @@ public class HeroForgeLoadService implements CharacterLoadService {
 		Row row = sheet.getRow(rowNum);
 		Cell cell = (row == null) ? null : row.getCell(colNum);
 		Double value = null;
-		if (cell != null && cell.getCellTypeEnum() == CellType.NUMERIC)
+		if (cell != null && CellType.NUMERIC.equals(cell.getCellType())) {
 			value = cell.getNumericCellValue();
+		}
 		return value;
 	}
 
@@ -248,7 +245,7 @@ public class HeroForgeLoadService implements CharacterLoadService {
 		Cell cell = row != null ? row.getCell(colNum) : null;
 		String text = null;
 			if (cell != null) {
-			switch (cell.getCellTypeEnum()) {
+			switch (cell.getCellType()) {
 			case STRING:
 				text = cell.getStringCellValue();
 				break;

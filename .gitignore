@@ -22,7 +22,8 @@ out/
 *.iml
 # maven
 target/
-
+# VS code
+.vscode/
 # Package Files #
 *.jar
 *.war
