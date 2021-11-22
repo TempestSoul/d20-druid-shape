@@ -19,6 +19,7 @@ out/
 
 # intellij specific gitignore
 .idea/
+*.iml
 # maven
 target/
 
