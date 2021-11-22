@@ -1,0 +1,93 @@
+<html>
+<head>
+    <title>{DruidName} ({Shape})</title>
+    <style>
+div {
+    clear: left;
+    width: 100%;
+    padding: 5px;
+    margin: 5px;
+}
+#Armor {
+    padding: 1em;
+    text-align: center;
+    clear: left;
+    float: left;
+}
+#Stats {
+    float: left;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin: 5px;
+}
+    </style>
+</head>
+<body>
+<div>
+    <h3 style="float: left;">{DruidName} ({Shape})</h3>
+    <h3 style="float: right;">Init {init}</h3>
+    </div>
+    <div>
+	<table id="Armor">
+		<caption>AC</caption>
+		<tr>
+			<th>{AC}</th>
+			<th>{touchAC}</th>
+			<th>{flatAc}</th>
+		</tr>
+		<tr>
+			<td>base</td>
+			<td>touch</td>
+			<td>flat</td>
+		</tr>
+	</table>
+	<table id="Stats">
+		<caption>Stats</caption>
+		<tr>
+			<th>STR</th>
+			<td>{Str}</td>
+			<th>INT</th>
+			<td>{Int}</td>
+		</tr>
+		<tr>
+			<th>DEX</th>
+			<td>{Dex}</td>
+			<th>WIS</th>
+			<td>{Wis}</td>
+		</tr>
+		<tr>
+			<th>CON</th>
+			<td>{Con}</td>
+			<th>CHA</th>
+			<td>{Cha}</td>
+		</tr>
+	</table>
+	<table id="Saves">
+		<caption>Saves</caption>
+		<tr>
+			<th>Fort</th>
+			<td>{Fort}</td>
+		</tr>
+		<tr>
+			<th>Ref</th>
+			<td>{Ref}</td>
+		</tr>
+		<tr>
+			<th>Will</th>
+			<td>{Will}</td>
+		</tr>
+	</table>
+	<span id="move" style="float: right;">Spd: {speed}</span><br/>
+	<h5>Attacks</h5>
+	<ul>
+		<li>{atk1}</li>
+	</ul>
+	<h5>Special Attacks</h5>
+	<ul>
+		<li>{atk1}</li>
+	</ul>
+	</div>
+</body>
+</html>

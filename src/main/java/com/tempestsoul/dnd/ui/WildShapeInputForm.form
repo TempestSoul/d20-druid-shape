@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.tempestsoul.dnd.ui.WildShapeInputForm">
+  <grid id="27dc6" binding="basePanel" layout-manager="GridBagLayout">
+    <constraints>
+      <xy x="20" y="20" width="738" height="471"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="d964d" binding="inputPanel" layout-manager="GridBagLayout">
+        <constraints>
+          <grid row="0" column="0" row-span="3" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="1.0" weighty="1.0"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="3ac70" class="javax.swing.JLabel" binding="druidName">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Select a Druid!"/>
+            </properties>
+          </component>
+          <scrollpane id="1fea9" binding="druidStatsScroll">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.5" weighty="0.5"/>
+            </constraints>
+            <properties>
+              <horizontalScrollBarPolicy value="30"/>
+              <verticalScrollBarPolicy value="21"/>
+            </properties>
+            <border type="none" title="Druid Stats"/>
+            <children>
+              <component id="eccf7" class="javax.swing.JTable" binding="druidStats">
+                <constraints/>
+                <properties>
+                  <autoResizeMode value="4"/>
+                  <fillsViewportHeight value="false"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+          <scrollpane id="4e069" binding="druidSkillsScroll">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="1.0" weighty="1.0"/>
+            </constraints>
+            <properties/>
+            <border type="none" title="Druid Skills"/>
+            <children>
+              <component id="b562c" class="javax.swing.JTable" binding="druidSkills">
+                <constraints/>
+                <properties>
+                  <autoResizeMode value="4"/>
+                  <fillsViewportHeight value="true"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+          <component id="4d86a" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Druid Level"/>
+            </properties>
+          </component>
+          <component id="7b71a" class="javax.swing.JTextField" binding="druidLvl">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <editable value="false"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="29138" class="javax.swing.JTextArea" binding="log">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+          <gridbag weightx="1.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value=""/>
+        </properties>
+      </component>
+      <splitpane id="3ce89">
+        <constraints>
+          <grid row="0" column="2" row-span="3" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="200" height="200"/>
+          </grid>
+          <gridbag weightx="1.0" weighty="1.0"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="6c992" binding="wildShapeSelectPanel" layout-manager="GridBagLayout">
+            <constraints>
+              <splitpane position="left"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="68b7" class="javax.swing.JComboBox" binding="shapeTypeDropdown">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="1.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <model>
+                    <item value="&lt;Select a Filter&gt;"/>
+                    <item value="Animal"/>
+                    <item value="Plant"/>
+                    <item value="Elemental"/>
+                  </model>
+                </properties>
+              </component>
+              <scrollpane id="b76a2" binding="wildShapeScroll">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="1.0" weighty="1.0"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="df6a4" class="javax.swing.JList" binding="wildShapeList">
+                    <constraints/>
+                    <properties>
+                      <model/>
+                      <selectionMode value="0"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+            </children>
+          </grid>
+          <grid id="80d3" binding="shapePanel" layout-manager="GridBagLayout">
+            <constraints>
+              <splitpane position="right"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="4e29d" layout-manager="GridBagLayout">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="1.0" weighty="1.0"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <scrollpane id="fc15c">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="1.0" weighty="1.0"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none" title="Shape Stats"/>
+                    <children>
+                      <component id="7aebe" class="javax.swing.JTable" binding="shapeStats">
+                        <constraints/>
+                        <properties>
+                          <autoResizeMode value="4"/>
+                          <preferredScrollableViewportSize width="128" height="128"/>
+                          <toolTipText value="The selected wild shape's stats"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </scrollpane>
+                </children>
+              </grid>
+              <grid id="60ac5" layout-manager="GridBagLayout">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="1.0" weighty="1.0"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <scrollpane id="62a29">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="1.0" weighty="1.0"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none" title="Shape Attacks"/>
+                    <children>
+                      <component id="3f042" class="javax.swing.JTable" binding="shapeAttacks">
+                        <constraints/>
+                        <properties>
+                          <autoResizeMode value="4"/>
+                          <preferredScrollableViewportSize width="250" height="400"/>
+                          <toolTipText value="The selected wild shape's attacks"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </scrollpane>
+                </children>
+              </grid>
+              <component id="431f7" class="javax.swing.JButton" binding="wildShapeButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <text value="Wild Shape"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </splitpane>
+    </children>
+  </grid>
+</form>
